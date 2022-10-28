@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Accueil |{% endblock title %}
+{% block body %}
+
+<div class="container">
+    <h1 class="titreindex my-5">Listes des Questions :</h1>
+
+
+
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+</div>
+{% endblock body %}

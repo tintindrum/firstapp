@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% load bootstrap5 %}{% bootstrap_css %} {% bootstrap_javascript %} 
+
+
+<form class="d-flex justify-content-center align-item-content my-5" action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1 class="text-white">{{ question.question_text }}</h1></legend>
+        {% if error_message %}<p><strong class="text-white">{{ error_message }}</strong></p>{% endif %}
+        {% for choice in question.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+        {% endfor %}
+    </fieldset>
+    {% buttons %}
+        <button type="submit" class="btn btn-primary my-5 mx-2" value="vote">Répondre</button>
+    {% endbuttons %}
+    </form>
+
+{% endblock body %}
